@@ -1,0 +1,146 @@
+{
+    "name": "Ingreso",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "scope": {
+        "order": "fecha DESC",
+        "include": [
+            "concepto",
+            "forma_de_pago",
+            "vendedor"
+        ]
+    },
+    "properties": {
+        "id": {
+            "type": "number",
+            "id": true,
+            "mssql": {
+                "columnName": "ing_id"
+            }
+        },
+        "fecha": {
+            "type": "date",
+            "required": true,
+            "mssql": {
+                "columnName": "ing_fecha",
+                "dataType": "DATE",
+                "nullable": false
+            }
+        },
+        "descripcion": {
+            "type": "string",
+            "required": false,
+            "length": 150,
+            "mssql": {
+                "columnName": "ing_descripcion",
+                "dataType": "nvarchar",
+                "dataLength": 150
+            }
+        },
+        "pasajero": {
+            "type": "string",
+            "required": false,
+            "length": 50,
+            "mssql": {
+                "columnName": "ing_pasajero",
+                "dataType": "nvarchar",
+                "dataLength": 50
+            }
+        },
+        "nro_res": {
+            "type": "number",
+            "mssql": {
+                "columnName": "ing_nro_res",
+                "dataType": "numeric",
+                "dataLength": 4
+            }
+        },
+        "recibo": {
+            "type": "string",
+            "length": 12,
+            "mssql": {
+                "columnName": "ing_recibo",
+                "dataType": "nvarchar",
+                "dataLength": 12
+            }
+        },
+        "cambio": {
+            "type": "number",
+            "required": true,
+            "default": 1,
+            "mssql": {
+                "columnName": "ing_cambio",
+                "dataType": "numeric"
+            }
+        },
+        "monto": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "ing_monto",
+                "dataType": "numeric"
+            }
+        },
+        "concepto_id": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "cpto_id",
+                "dataType": "bigint"
+            }
+        },
+        "forma_de_pago_id": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "fpgo_id",
+                "dataType": "bigint"
+            }
+        },
+        "vendedor_id": {
+            "type": "number",
+            "required": false,
+            "mssql": {
+                "columnName": "ven_id",
+                "dataType": "bigint"
+            }
+        }
+    },
+    "validations": [],
+    "relations": {
+        "concepto": {
+            "type": "belongsTo",
+            "model": "Concepto",
+            "foreignKey": "concepto_id",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        "forma_de_pago": {
+            "type": "belongsTo",
+            "model": "FormaDePago",
+            "foreignKey": "forma_de_pago_id",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        "vendedor": {
+            "type": "belongsTo",
+            "model": "Vendedor",
+            "foreignKey": "vendedor_id",
+            "options": {
+                "nestRemoting": true
+            }
+        }
+    },
+    "acls": [{
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW"
+    }],
+    "methods": {}
+}

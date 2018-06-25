@@ -1,0 +1,39 @@
+{
+  "name": "FormaDePago",
+  "plural": "FormasDePago",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "mssql": {
+        "columnName": "fpgo_id"
+      }
+    },
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "length": 50,
+      "mssql": {
+        "columnName": "fpgo_nombre",
+        "dataType": "nvarchar",
+        "dataLength": 50
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
+}

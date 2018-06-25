@@ -1,0 +1,67 @@
+{
+  "_meta": {
+    "sources": [
+      "loopback/common/models",
+      "loopback/server/models",
+      "../common/models",
+      "./models"
+    ],
+    "mixins": [
+      "loopback/common/mixins",
+      "loopback/server/mixins",
+      "../common/mixins",
+      "./mixins"
+    ]
+  },
+  "User": {
+    "dataSource": "vinea",
+    "public": false
+  },
+  "AccessToken": {
+    "dataSource": "vinea",
+    "public": false
+  },
+  "ACL": {
+    "dataSource": "vinea",
+    "public": false
+  },
+  "RoleMapping": {
+    "dataSource": "vinea",
+    "public": false,
+    "options": {
+      "strictObjectIDCoercion": true
+    }
+  },
+  "Role": {
+    "dataSource": "vinea",
+    "public": false
+  },
+  "Usuario": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "Ingreso": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "Vendedor": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "Concepto": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "FormaDePago": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "Egreso": {
+    "dataSource": "vinea",
+    "public": true
+  },
+  "Operador": {
+    "dataSource": "vinea",
+    "public": true
+  }
+}

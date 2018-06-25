@@ -1,0 +1,128 @@
+{
+    "name": "Egreso",
+    "base": "PersistedModel",
+    "idInjection": true,
+    "options": {
+        "validateUpsert": true
+    },
+    "scope": {
+        "order": "fecha DESC",
+        "include": [
+            "concepto",
+            "forma_de_pago",
+            "operador"
+        ]
+    },
+    "properties": {
+        "id": {
+            "type": "number",
+            "id": true,
+            "mssql": {
+                "columnName": "egr_id"
+            }
+        },
+        "fecha": {
+            "type": "date",
+            "required": true,
+            "mssql": {
+                "columnName": "egr_fecha",
+                "dataType": "DATE",
+                "nullable": false
+            }
+        },
+        "descripcion": {
+            "type": "string",
+            "required": false,
+            "length": 150,
+            "mssql": {
+                "columnName": "egr_descripcion",
+                "dataType": "nvarchar",
+                "dataLength": 150
+            }
+        },
+        "operador_id": {
+            "type": "number",
+            "required": false,
+            "mssql": {
+                "columnName": "ope_id",
+                "dataType": "bigint"
+            }
+        },
+        "nro_res": {
+            "type": "number",
+            "required": false,
+            "mssql": {
+                "columnName": "egr_nro_res",
+                "dataType": "numeric",
+                "dataLength": 4
+            }
+        },
+        "cambio": {
+            "type": "number",
+            "required": true,
+            "default": 1,
+            "mssql": {
+                "columnName": "egr_cambio",
+                "dataType": "numeric"
+            }
+        },
+        "monto": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "egr_monto",
+                "dataType": "numeric"
+            }
+        },
+        "concepto_id": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "cpto_id",
+                "dataType": "bigint"
+            }
+        },
+        "forma_de_pago_id": {
+            "type": "number",
+            "required": true,
+            "mssql": {
+                "columnName": "fpgo_id",
+                "dataType": "bigint"
+            }
+        }
+    },
+    "validations": [],
+    "relations": {
+        "concepto": {
+            "type": "belongsTo",
+            "model": "Concepto",
+            "foreignKey": "concepto_id",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        "forma_de_pago": {
+            "type": "belongsTo",
+            "model": "FormaDePago",
+            "foreignKey": "forma_de_pago_id",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        "operador": {
+            "type": "belongsTo",
+            "model": "Operador",
+            "foreignKey": "operador_id",
+            "options": {
+                "nestRemoting": true
+            }
+        }
+    },
+    "acls": [{
+        "accessType": "*",
+        "principalType": "ROLE",
+        "principalId": "$authenticated",
+        "permission": "ALLOW"
+    }],
+    "methods": {}
+}

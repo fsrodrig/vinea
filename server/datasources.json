@@ -1,0 +1,16 @@
+{
+  "db": {
+    "name": "db",
+    "connector": "memory"
+  },
+  "vinea": {
+    "host": "localhost",
+    "port": 1433,
+    "url": "",
+    "database": "Vinea",
+    "password": "sFi79lmb",
+    "name": "vinea",
+    "user": "SA",
+    "connector": "mssql"
+  }
+}

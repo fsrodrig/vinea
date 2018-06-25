@@ -1,0 +1,222 @@
+{
+  "name": "Usuario",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "emailVerificationRequired": false,
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "description": "ID del usuario",
+      "mssql": {
+        "columnName": "usr_id"
+      }
+    },
+    "username": {
+      "type": "string",
+      "required": true,
+      "length": 20,
+      "mssql": {
+        "columnName": "usr_username",
+        "dataType": "nvarchar",
+        "dataLength": 20
+      }
+    },
+    "email": {
+      "type": "string",
+      "required": true,
+      "length": 50,
+      "mssql": {
+        "columnName": "usr_email",
+        "dataType": "nvarchar",
+        "dataLength": 50
+      }
+    },
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "length": 50,
+      "mssql": {
+        "columnName": "usr_nombre",
+        "dataType": "nvarchar",
+        "dataLength": 50
+      }
+    },
+    "apellido": {
+      "type": "string",
+      "required": true,
+      "length": 50,
+      "mssql": {
+        "columnName": "usr_apellido",
+        "dataType": "nvarchar",
+        "dataLength": 50
+      }
+    },
+    "dni": {
+      "type": "number",
+      "required": true,
+      "length": 8,
+      "mssql": {
+        "columnName": "usr_dni",
+        "dataType": "numeric",
+        "dataLength": 8
+      }
+    },
+    "cuil": {
+      "type": "number",
+      "required": true,
+      "length": 11,
+      "mssql": {
+        "columnName": "usr_cuil",
+        "dataType": "numeric",
+        "dataLength": 11
+      }
+    },
+    "domicilio": {
+      "type": "string",
+      "required": true,
+      "length": 100,
+      "mssql": {
+        "columnName": "usr_direccion",
+        "dataType": "nvarchar",
+        "dataLength": 100
+      }
+    },
+    "telefono": {
+      "type": "number",
+      "required": true,
+      "length": 15,
+      "mssql": {
+        "columnName": "usr_telefono",
+        "dataType": "numeric",
+        "dataLength": 15
+      }
+    },
+    "fecha_nacimiento": {
+      "type": "date",
+      "required": true,
+      "mssql": {
+        "columnName": "usr_fecha_nacimiento",
+        "dataType": "DATE"
+      }
+    },
+    "legajo": {
+      "type": "number",
+      "required": true,
+      "description": "Número de legajo",
+      "length": 2,
+      "mssql": {
+        "columnName": "usr_legajo",
+        "dataType": "numeric",
+        "dataLength": 2
+      }
+    },
+    "foto": {
+      "type": "string",
+      "description": "url de la foto",
+      "mssql": {
+        "columnName": "usr_foto",
+        "dataType": "nvarchar",
+        "dataLength": 1000
+      }
+    },
+    "emailVerified": {
+      "type": "boolean",
+      "mssql": {
+        "columnName": "usr_emailVerified",
+        "dataType": "bit"
+      }
+    },
+    "password": {
+      "type": "string",
+      "required": true,
+      "mssql": {
+        "columnName": "usr_password"
+      }
+    },
+    "verificationToken": {
+      "type": "string",
+      "required": false,
+      "mssql": {
+        "columnName": "usr_verificationToken"
+      }
+    },
+    "realm": {
+      "type": "string",
+      "mssql": {
+        "columnName": "usr_realm"
+      }
+    },
+    "fecha_alta": {
+      "type": "date",
+      "required": true,
+      "description": "Fecha de creación del usuario",
+      "defaultFn": "now",
+      "mssql": {
+        "columnName": "usr_fecha_alta",
+        "dataType": "DATE",
+        "nullable": "FALSE"
+      }
+    },
+    "fecha_baja": {
+      "type": "date",
+      "required": false,
+      "description": "Fecha de baja del usuario",
+      "mssql": {
+        "columnName": "usr_fecha_baja",
+        "dataType": "DATE"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW"
+    },
+    {
+      "accessType": "EXECUTE",
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "find"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "deleteById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "upsert"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "replaceById"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "updateAll"
+    },
+    {
+      "principalType": "ROLE",
+      "principalId": "$everyone",
+      "permission": "ALLOW",
+      "property": "findById"
+    }
+  ],
+  "methods": {}
+}
