@@ -10,7 +10,8 @@
         "include": [
             "concepto",
             "forma_de_pago",
-            "operador"
+            "operador",
+            "categoria_gasto"
         ]
     },
     "properties": {
@@ -63,7 +64,9 @@
             "default": 1,
             "mssql": {
                 "columnName": "egr_cambio",
-                "dataType": "numeric"
+                "dataType": "numeric",
+                "dataPrecision": 5,
+                "dataScale": 2
             }
         },
         "monto": {
@@ -71,7 +74,9 @@
             "required": true,
             "mssql": {
                 "columnName": "egr_monto",
-                "dataType": "numeric"
+                "dataType": "numeric",
+                "dataPrecision": 18,
+                "dataScale": 2
             }
         },
         "concepto_id": {
@@ -87,6 +92,13 @@
             "required": true,
             "mssql": {
                 "columnName": "fpgo_id",
+                "dataType": "bigint"
+            }
+        },
+        "categoria_gasto_id": {
+            "type": "number",
+            "mssql": {
+                "columnName": "cgto_id",
                 "dataType": "bigint"
             }
         }
@@ -105,6 +117,14 @@
             "type": "belongsTo",
             "model": "FormaDePago",
             "foreignKey": "forma_de_pago_id",
+            "options": {
+                "nestRemoting": true
+            }
+        },
+        "categoria_gasto": {
+            "type": "belongsTo",
+            "model": "CategoriaGasto",
+            "foreignKey": "categoria_gasto_id",
             "options": {
                 "nestRemoting": true
             }

@@ -209,7 +209,7 @@
       "principalType": "ROLE",
       "principalId": "$everyone",
       "permission": "ALLOW",
-      "property": "updateAll"
+      "property": "updateAttributes"
     },
     {
       "principalType": "ROLE",

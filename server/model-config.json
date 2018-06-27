@@ -63,5 +63,9 @@
   "Operador": {
     "dataSource": "vinea",
     "public": true
+  },
+  "CategoriaGasto": {
+    "dataSource": "vinea",
+    "public": true
   }
 }

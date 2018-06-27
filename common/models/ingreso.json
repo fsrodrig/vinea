@@ -73,7 +73,9 @@
             "default": 1,
             "mssql": {
                 "columnName": "ing_cambio",
-                "dataType": "numeric"
+                "dataType": "numeric",
+                "dataPrecision": 5,
+                "dataScale": 2
             }
         },
         "monto": {
@@ -81,7 +83,9 @@
             "required": true,
             "mssql": {
                 "columnName": "ing_monto",
-                "dataType": "numeric"
+                "dataType": "numeric",
+                "dataPrecision": 18,
+                "dataScale": 2
             }
         },
         "concepto_id": {

@@ -1,68 +1,70 @@
 {
-    "name": "Operador",
-    "plural": "Operadores",
-    "base": "PersistedModel",
-    "idInjection": true,
-    "options": {
-        "validateUpsert": true
+  "name": "Operador",
+  "plural": "Operadores",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "scope": {
+    "order": "nombre DESC",
+    "where": {
+      "fecha_baja": null
+    }
+  },
+  "properties": {
+    "id": {
+      "type": "number",
+      "id": true,
+      "mssql": {
+        "columnName": "ope_id"
+      }
     },
-    "scope": {
-        "order": "nombre DESC",
-        "where": {
-            "fecha_baja": null
-        }
+    "nombre": {
+      "type": "string",
+      "required": true,
+      "index": {
+        "unique": true
+      },
+      "length": 50,
+      "mssql": {
+        "columnName": "ope_nombre",
+        "dataType": "nvarchar",
+        "dataLength": 50
+      }
     },
-    "properties": {
-        "id": {
-            "type": "number",
-            "id": true,
-            "mssql": {
-                "columnName": "ope_id"
-            }
-        },
-        "nombre": {
-            "type": "string",
-            "required": true,
-            "length": 50,
-            "index": {
-                "unique": true
-            },
-            "mssql": {
-                "columnName": "ope_nombre",
-                "dataType": "nvarchar",
-                "dataLength": 50
-            }
-        },
-        "cuit": {
-            "type": "number",
-            "required": true,
-            "length": 11,
-            "index": {
-                "unique": true
-            },
-            "mssql": {
-                "columnName": "ope_cuit",
-                "dataType": "numeric",
-                "dataLength": 11
-            }
-        },
-        "fecha_baja": {
-            "type": "date",
-            "required": false,
-            "description": "Fecha de baja del operador",
-            "mssql": {
-                "columnName": "ope_fecha_baja",
-                "dataType": "DATE"
-            }
-        }
+    "cuit": {
+      "type": "number",
+      "required": true,
+      "index": {
+        "unique": true
+      },
+      "length": 11,
+      "mssql": {
+        "columnName": "ope_cuit",
+        "dataType": "numeric",
+        "dataLength": 11
+      }
     },
-    "validations": [],
-    "relations": {},
-    "acls": [{
-        "accessType": "*",
-        "principalType": "ROLE",
-        "principalId": "$authenticated",
-        "permission": "ALLOW"
-    }],
-    "methods": {}
+    "fecha_baja": {
+      "type": "date",
+      "required": false,
+      "description": "Fecha de baja del operador",
+      "mssql": {
+        "columnName": "ope_fecha_baja",
+        "dataType": "DATE"
+      }
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [
+    {
+      "accessType": "*",
+      "principalType": "ROLE",
+      "principalId": "$authenticated",
+      "permission": "ALLOW"
+    }
+  ],
+  "methods": {}
 }
