@@ -1,0 +1,64 @@
+<div class="row">
+
+    <div class="col-md-4">
+
+        <div dropFiles [ngClass]="{ 'file-over': estaSobreDropZone }" (archivoSobre)="archivoSobreDropZone($event)" [archivos]="archivos" class="well drop-zone">
+            <div *ngIf="!isCargada">
+                <img class="img-thumbnail" src="../../../../assets/images/img-upload.png">
+                <label>Suelta la imagen aquí</label>
+            </div>
+            <div *ngIf="isCargada">
+                <img [src]="archivos[0]?.url" alt="uploaded" class="img-thumbnail">
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="col-md-8 m-b-lg">
+
+        <div class="btn-group">
+            <button type="button" class="btn btn-info btn-sm" (click)="cargarImagenesFirebase()" [disabled]="archivos.length === 0 || !permiteCargar">
+                <i class="fa fa-upload"></i>
+                <span> Cargar</span>
+
+            </button>
+
+            <button type="button" class="btn btn-danger btn-sm" (click)="limpiarArchivos()">
+                <i class="fa fa-ban"></i>
+                <span> Limpiar</span>
+            </button>
+        </div>
+
+        <table class="table table-sm m-t-md" *ngIf="archivos != null">
+            <thead class="thead-inverse">
+                <tr>
+                    <th>Nombre</th>
+                    <th>Tamaño</th>
+                    <th>Progreso</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let archivo of archivos">
+                    <td class="text" [ngClass]="{ 'text-green': !archivo.estaSubiendo }">
+                        <span><strong>{{ archivo.nombreArchivo }}</strong></span>
+                    </td>
+                    <td>
+                        {{ archivo.archivo.size / 1024 / 1024 | number:'.2' }}MB
+                    </td>
+                    <td>
+
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': archivo.progreso + '%' }" ngClass="{'progress-bar-striped progress-bar-animated': archivo.progreso < 100 }">
+                                {{archivo.progreso | number:'.2'}}%
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>

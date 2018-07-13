@@ -1,0 +1,35 @@
+.main-container{
+    margin-top: 40px;
+}
+
+/* Drop Zone */
+.drop-zone {
+    border: dotted 3px lightgray;
+    opacity: 0.5;
+    color: #666;
+    text-align: center
+}
+
+.file-over {
+    border: dotted 3px dodgerblue;
+}
+
+.text-green {
+    color: green
+}
+
+.upload {
+    width: 200px;
+    height: 200px;
+}
+
+.table td.text {
+    max-width: 177px;
+}
+.table td.text span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: inline-block;
+    max-width: 100%;
+}

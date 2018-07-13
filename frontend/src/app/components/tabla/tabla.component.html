@@ -1,0 +1,70 @@
+<div class="card">
+    <div class="card-body">
+        <div class="pull-right float-right">
+            <button type="button" class="btn waves-effect waves-light btn-info" (click)="create()">
+            <i class="fa fa-plus "></i>
+            {{ newText }} {{ object.nombre }}
+        </button>
+        </div>
+        <h4 class="card-title ">Lista de {{ object.nombrePlural }}</h4>
+        <h6 class="card-subtitle "></h6>
+        <div class="alert alert-info alert-rounded top-app-tabla animated pulse" *ngIf="object.datos.length == 0">
+            <i class="ti-notepad"></i> No hay {{ object.nombrePlural }} {{ cargado }}.
+        </div>
+        <div class="table-responsive m-t-40" *ngIf="object.datos.length > 0">
+            <div class="dataTables_wrapper ">
+                <div class="dataTables_length " id="myTable_length ">
+                    <label>Mostrar 
+                    <select name="myTable_length " aria-controls="myTable " class=" ">
+                        <option value="10 ">10</option>
+                        <option value="25 " *ngIf="total >= 25 ">25</option>
+                        <option value="50 " *ngIf="total >= 50 ">50</option>
+                        <option value="100 " *ngIf="total >= 100 ">100</option>
+                    </select> {{ object.nombrePlural }}
+                </label>
+                </div>
+                <div id="myTable_filter " class="dataTables_filter ">
+                    <label>Buscar:
+                    <input type="search" aria-controls="myTable" [(ngModel)]="search" (ngModelChange)="find()">
+                </label>
+                </div>
+                <table id="myTable " class="display nowrap table table-hover table-striped table-bordered dataTable animated fadeInUp">
+                    <thead>
+                        <tr>
+                            <th *ngFor="let columna of object.columnas ">{{columna.nombre}}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let dato of object.datos; let i = index ">
+                            <td *ngFor="let columna of object.columnas">
+                                <span *ngIf="!columna.tipo ">{{ dato[columna.atributo] }}</span>
+                                <span *ngIf="columna.tipo === 'fecha' ">{{ dato[columna.atributo] | date:'dd/MM/yyyy' }}</span>
+                                <span *ngIf="columna.tipo === 'estado' ">
+                                    <span *ngIf="dato[columna.atributo] !== null " class="label label-danger">Inactivo</span>
+                                <span *ngIf="dato[columna.atributo] === null " class="label label-success">Activo</span>
+                                </span>
+                            </td>
+                            <td class="text-right">
+                                <button type="button " class="btn btn-outline-info btn-circle margin-btn-component " (click)="view(dato.id)"><i class="fa fa-eye "></i></button>
+                                <button type="button " class="btn btn-outline-danger btn-circle " (click)="delete(dato, i) "><i class="fa fa-trash "></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div *ngIf="datos && datos.length> 0" class="dataTables_info" id="example23_info" role="status" aria-live="polite">Viendo 1 a 10 de {{ object.datos.length }} {{ object.nombrePlural }}</div>
+                <!-- <div class="dataTables_paginate paging_simple_numbers" id="example23_paginate">
+                    <a class="paginate_button previous disabled" aria-controls="example23" data-dt-idx="0" tabindex="0" id="example23_previous">Previous</a>
+                    <span>
+                    <a class="paginate_button current" aria-controls="example23" data-dt-idx="1" tabindex="0">1</a>
+                    <a class="paginate_button " aria-controls="example23" data-dt-idx="2" tabindex="0">2</a>
+                    <a class="paginate_button " aria-controls="example23" data-dt-idx="3" tabindex="0">3</a>
+                    <a class="paginate_button " aria-controls="example23" data-dt-idx="4" tabindex="0">4</a>
+                    <a class="paginate_button " aria-controls="example23" data-dt-idx="5" tabindex="0">5</a>
+                    <a class="paginate_button " aria-controls="example23" data-dt-idx="6" tabindex="0">6</a>
+                </span>
+                    <a class="paginate_button next" aria-controls="example23" data-dt-idx="7" tabindex="0" id="example23_next">Next</a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

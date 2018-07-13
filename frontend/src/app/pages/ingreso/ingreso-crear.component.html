@@ -1,0 +1,127 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" role="form" [formGroup]="forma" ngNativeValidate (ngSubmit)="save()">
+                    <div class="form-body">
+                        <h3 class="box-title">Datos del ingreso</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Fecha:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="fecha" name="fecha" type="date" class="form-control form-control-danger">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Concepto:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control form-control-danger" name="concepto_id" id="concepto_id" formControlName="concepto_id" (blur)="clean()" required>
+                                                <option selected value="" disabled>Seleccione una opción...</option>
+                                                <option  *ngFor="let concepto of conceptos" [value]="concepto.id">{{concepto.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="forma.value.concepto_id === '1'">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Vendedor:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control form-control-danger" name="vendedor_id" id="vendedor_id" formControlName="vendedor_id" required>
+                                                <option selected disabled>Seleccione una opción...</option>
+                                                <option *ngFor="let vendedor of vendedores" [value]="vendedor.id">{{vendedor.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Nº Reserva:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="nro_res" name="nro_res" type="number" class="form-control form-control-danger" min="5000" max="9999">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="forma.value.concepto_id === '1'">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Pasajero:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="pasajero" name="pasajero" type="text" class="form-control form-control-danger" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Nº Recibo:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="recibo" name="recibo" type="text" class="form-control form-control-danger" required maxlength="12">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Descripción:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="descripcion" name="descripcion" type="text" class="form-control form-control-danger" [required]="forma.value.concepto_id !== '1'">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Forma de pago:</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control form-control-danger" name="forma_de_pago_id" id="forma_de_pago_id" formControlName="forma_de_pago_id" required>
+                                                <option selected disabled>Seleccione una opción...</option>
+                                                <option *ngFor="let forma_de_pago of formas_de_pago" [value]="forma_de_pago.id">{{forma_de_pago.nombre}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Tasa de Cambio:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="cambio" name="cambio" type="number" class="form-control form-control-danger" step="0.01" min="1" max="100" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Monto:</label>
+                                    <div class="col-md-9">
+                                        <input formControlName="monto" name="monto" type="number" class="form-control form-control-danger" step="0.01" required min="0">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row animated fadeIn">
+                                    <div class="col-md-offset-3 col-md-9 btn-group">
+                                        <button type="submit" class="btn btn-success" [disabled]="isSaving">
+                      <i class="fa fa-check"></i>Guardar</button>
+                                        <button type="button" class="btn btn-inverse" (click)="goBack()">Atrás</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="card-body">
+                <form class="form-horizontal" role="form" [formGroup]="forma" ngNativeValidate (ngSubmit)="save()">
+                    <div class="form-body">
+                        <h3 class="box-title">Datos del operador #{{ operador.id }}</h3>
+                        <hr class="m-t-0 m-b-40">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Nombre:</label>
+                                    <div class="col-md-9">
+                                        <p *ngIf="!isEdit" class="form-control-static">{{ operador.nombre }}</p>
+                                        <input *ngIf="isEdit" formControlName="nombre" name="nombre" type="text" class="form-control form-control-danger" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">CUIT:</label>
+                                    <div class="col-md-9" [ngClass]="{'has-danger': forma.controls.cuit && forma.controls.cuit.invalid && !forma.controls.cuit.pristine}">
+                                        <p *ngIf="!isEdit" class="form-control-static">{{ operador.cuit }}</p>
+                                        <input *ngIf="isEdit" formControlName="cuit" name="cuit" type="number" class="form-control form-control-danger" required>
+                                        <small class="form-control-feedback" *ngIf="forma.controls.cuit && forma.controls.cuit.invalid && !forma.controls.cuit.pristine">{{forma.controls.cuit.errors.cuitInvalid}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6" *ngIf="operador.fecha_baja">
+                                <div class="form-group row animated fadeIn">
+                                    <label class="control-label text-right col-md-3">Fecha baja:</label>
+                                    <div class="col-md-9">
+                                        <p *ngIf="!isEdit" class="form-control-static"> {{ operador.fecha_baja | date: 'dd/MM/yyyy' }} </p>
+                                        <input formControlName="fecha_baja" name="fecha_baja" *ngIf="isEdit" type="date" class="form-control form-control-danger" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row animated fadeIn">
+                                    <div class="col-md-offset-3 col-md-9 btn-group">
+                                        <button type="button" *ngIf="!isEdit" class="btn btn-danger" (click)="toEdit()"> <i class="fa fa-pencil"></i>Editar</button>
+                                        <button type="submit" *ngIf="isEdit" class="btn btn-success" [disabled]="isSaving"><i class="fa fa-check"></i>Guardar</button>
+                                        <button type="button" class="btn btn-inverse" (click)="goBack()">Atrás</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6"> </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

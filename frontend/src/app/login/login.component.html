@@ -1,0 +1,60 @@
+<!-- ============================================================== -->
+<!-- Main wrapper - style you can find in pages.scss -->
+<!-- ============================================================== -->
+<section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/login-register.jpg);">
+    <div class="login-box card">
+        <div class="card-body">
+            <form ngNativeValidate #f="ngForm" class="form-horizontal floating-labels" id="loginform" (ngSubmit)="ingresar(f)" action="index.html">
+                <img class="logo-center" src="../../assets/images/logo-vinea.png" alt="Home" />
+                <div class="form-group m-t-40">
+                    <div class="col-xs-12">
+                        <input [ngModel]="username" autocomplete="username" id="username" name="username" class="form-control" type="text" required>
+                        <span class="bar"></span>
+                        <label for="username">Usuario</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-12">
+                        <input ngModel id="password" autocomplete="current-password" name="password" class="form-control" type="password" required>
+                        <span class="bar"></span>
+                        <label for="password">Contraseña</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <div class="checkbox checkbox-primary pull-left p-t-0">
+                            <input [(ngModel)]="recordarme" name="recordarme" id="checkbox-signup" type="checkbox" class="filled-in chk-col-light-blue">
+                            <label for="checkbox-signup"> Recordarme </label>
+                        </div>
+                        <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Olvidó la Contraseña?</a> </div>
+                </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-info btn-lg btn-block text-uppercase btn-rounded" type="submit">Ingresar</button>
+                    </div>
+                </div>
+            </form>
+            <form class="form-horizontal" id="recoverform" action="index.html">
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <h3>Recuperar Contraseña</h3>
+                        <p class="text-muted">Ingrese su email y recibirá las inscrucciones para recuperar la contraseña</p>
+                    </div>
+                </div>
+                <div class="form-group ">
+                    <div class="col-xs-12">
+                        <input class="form-control" type="text" required="" placeholder="Email">
+                    </div>
+                </div>
+                <div class="form-group text-center m-t-20">
+                    <div class="col-xs-12">
+                        <button class="btn btn-primary btn-lg btn-block text-uppercase waves-effect waves-light" type="submit">Resetear</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+<!-- ============================================================== -->
+<!-- End Wrapper -->
+<!-- ============================================================== -->
