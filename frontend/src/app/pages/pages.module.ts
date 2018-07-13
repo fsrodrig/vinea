@@ -24,6 +24,10 @@ import {
   PAGES_ROUTES
 } from './pages.routes';
 
+// NgCharts
+import { ChartsModule } from 'ng2-charts';
+
+
 // Componentes
 import {
   PagesComponent,
@@ -37,11 +41,11 @@ import {
   IngresoViewComponent,
   EgresoComponent,
   EgresoCrearComponent,
-  EgresoViewComponent
+  EgresoViewComponent,
+  OperadorComponent,
+  OperadorCrearComponent,
+  OperadorViewComponent
 } from './pages.index';
-import { OperadorComponent } from './operador/operador.component';
-import { OperadorCrearComponent } from './operador/operador-crear.component';
-import { OperadorViewComponent } from './operador/operador-view.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +76,8 @@ import { OperadorViewComponent } from './operador/operador-view.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    ComponentsModule
+    ComponentsModule,
+    ChartsModule
   ]
 })
 export class PagesModule {}

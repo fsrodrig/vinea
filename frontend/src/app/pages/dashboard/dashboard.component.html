@@ -1,5 +1,10 @@
 <h3 class="text-center">Tenencias</h3>
-<hr class="m-t-10 m-b-40 m-linea-corta-centro">
+<hr class="m-t-10 m-b-20 m-linea-corta-centro">
+<div class="row justify-content-md-center m-b-20">
+    <div class="input-group col-md-3">
+        <input [(ngModel)]="date_tenencia" (ngModelChange)="calcular()" type="date" class="form-control" placeholder="dd/mm/yyyy">
+        <span class="input-group-addon"><i class="icon-calender"></i></span> </div>
+</div>
 <div class="row">
     <div *ngFor="let tenencia of tenencias" class="col-lg-3 col-md-6">
         <div class="card animated fadeIn">
@@ -11,6 +16,33 @@
                     <h3 class="m-b-0" [ngClass]="tenencia.texto">{{ tenencia.total | currencyFormatPipe}}</h3>
                     <h5 class="text-muted m-b-0">{{ tenencia.nombre }}</h5>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="text-center mt-4">Gastos</h3>
+<hr class="m-t-10 m-b-40 m-linea-corta-centro">
+<div class="row">
+    <div class="col-6">
+        <div class="card animated fadeIn">
+            <div class="card-body">
+
+                <div style="display: block">
+                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="barChartHovered($event)" (chartClick)="barChartClicked($event)"></canvas>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card animated fadeIn">
+            <div class="card-body">
+
+                <div style="display: block">
+                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
+                </div>
+
             </div>
         </div>
     </div>
