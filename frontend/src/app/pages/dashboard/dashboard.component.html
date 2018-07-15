@@ -29,7 +29,7 @@
             <div class="card-body">
 
                 <div style="display: block">
-                    <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="barChartHovered($event)" (chartClick)="barChartClicked($event)"></canvas>
+                    <canvas #barChart=base-chart baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartClick)="barChartClicked($event)"></canvas>
                 </div>
 
             </div>
@@ -40,7 +40,7 @@
             <div class="card-body">
 
                 <div style="display: block">
-                    <canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" (chartHover)="pieChartHovered($event)" (chartClick)="pieChartClicked($event)"></canvas>
+                    <canvas #pieChart=base-chart baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
                 </div>
 
             </div>

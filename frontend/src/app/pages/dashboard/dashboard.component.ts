@@ -1,18 +1,28 @@
 import {
   Component,
-  OnInit
+  OnInit,
+  ViewChild
 } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import {
+  DatePipe
+} from '@angular/common';
 import {
   IngresoService,
-  EgresoService
+  EgresoService,
+  CategoriaGastoService
 } from '../../services/service.index';
 import {
   Ingreso
 } from '../../models/ingreso.model';
 import {
-    Egreso
+  Egreso
 } from '../../models/egreso.model';
+
+import {
+  isNullOrUndefined
+} from 'util';
+import { BaseChartDirective } from 'ng2-charts';
+import { CategoriaGasto } from '../../models/categoria-gasto.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,13 +32,50 @@ export class DashboardComponent implements OnInit {
 
   ingresos: Ingreso[];
   egresos: Egreso[];
+  gastos: Egreso[];
 
   tenencias: Tenencia[];
   date_tenencia: string;
 
+  // Declaro las variables que van a llevar la cuenta de gastos
+  tot = [0,0,0,0,0,0,0,0,0,0,0,0]
+
+  // Doughnut
+
+  @ViewChild('pieChart') pieChart: BaseChartDirective;
+
+
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: number[] = [];
+  public doughnutChartType: string = 'doughnut';
+  
+  // BarChart
+  
+  @ViewChild('barChart') barChart: BaseChartDirective;
+
+  public barChartOptions: any = {
+    scaleShowVerticalLines: false,
+    responsive: true,
+    scales : {
+      yAxes: [{
+         ticks: {
+            beginAtZero: true
+          }
+      }] 
+    }
+  };
+  public barChartLabels: string[] = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ];
+  public barChartType: string = 'bar';
+  public barChartLegend: boolean = true;
+  public barChartData: any[] = [{
+    data: [0],
+    label: "Gastos 2018"
+  }];
+
   constructor(
     public _ingreso: IngresoService,
     public _egreso: EgresoService,
+    public _categoriaGasto: CategoriaGastoService,
     public datePipe: DatePipe
   ) {
     this.tenencias = [{
@@ -96,29 +143,21 @@ export class DashboardComponent implements OnInit {
   private onSuccessOut(res: Egreso[]) {
     this.egresos = res;
     this.calcular();
+    this.generarGraficos();
   }
 
   private calcular() {
-    //Inicializo los totales en 0
+    // Inicializo los totales en 0
     this.tenencias.forEach((t) => t.total = 0);
-    
+
     let ingresos = this.ingresos;
     let egresos = this.egresos;
     // Filtro a la última fecha seleccionada.
     if (this.date_tenencia !== null) {
-        ingresos = this.ingresos.filter((i) => {
-            const fecha = new Date(i.fecha);
-            const elegida = new Date(this.date_tenencia);
-            fecha.getTime() <= elegida.getTime()
-        });
-        console.log('ingresos :', ingresos);
-        egresos  = this.egresos.filter((e) => {
-            const fecha = new Date(e.fecha);
-            const elegida = new Date(this.date_tenencia);
-            fecha.getTime() <= elegida.getTime()
-        });
+      ingresos = this.ingresos.filter((i) => (new Date(i.fecha)).getTime() <= (new Date(this.date_tenencia)).getTime());
+      egresos = this.egresos.filter((e) => (new Date(e.fecha)).getTime() <= (new Date(this.date_tenencia)).getTime());
     }
-    
+
     // Pesos
     ingresos.filter((ingreso) => ingreso.forma_de_pago_id === 1)
       .forEach((ingreso) => this.tenencias[0].total += ingreso.monto);
@@ -161,46 +200,107 @@ export class DashboardComponent implements OnInit {
 
   }
 
-  // Doughnut
-  public doughnutChartLabels: string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-  public doughnutChartData: number[] = [350, 450, 100];
-  public doughnutChartType: string = 'doughnut';
-
-  // events
-  public pieChartClicked(e: any): void {
-    console.log(e);
-  }
-
-  public pieChartHovered(e: any): void {
-    console.log(e);
-  }
-
-  // BarChart
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true
-  };
-  public barChartLabels: string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-  public barChartType: string = 'bar';
-  public barChartLegend: boolean = true;
-
-  public barChartData: any[] = [{
-      data: [65, 59, 80, 81, 56, 55, 40],
-      label: 'Series A'
-    },
-    {
-      data: [28, 48, 40, 19, 86, 27, 90],
-      label: 'Series B'
+  public generarGraficos() {
+    let meses = new Set();
+    this.gastos = this.egresos.filter((e) => !isNullOrUndefined(e.categoria_gasto_id));
+    // Asigno los gastos a cada mes. (no toma los años diferentes!)
+    this.gastos.forEach((g) => {
+      let fecha = new Date(g.fecha);
+      switch (fecha.getMonth()) {
+        case 0:
+          this.tot[0] += g.monto;
+          meses.add(`Ene ${fecha.getFullYear()}`)
+          break;
+        case 1:
+          this.tot[1] += g.monto;
+          meses.add(`Feb ${fecha.getFullYear()}`)
+          break;
+        case 2:
+          this.tot[2] += g.monto;
+          meses.add(`Mar ${fecha.getFullYear()}`)
+          break;
+        case 3:
+          this.tot[3] += g.monto;
+          meses.add(`Abr ${fecha.getFullYear()}`)
+          break;
+        case 4:
+          this.tot[4] += g.monto;
+          meses.add(`May ${fecha.getFullYear()}`)
+          break;
+        case 5:
+          this.tot[5] += g.monto;
+          meses.add(`Jun ${fecha.getFullYear()}`)
+          break;
+        case 6:
+          this.tot[6] += g.monto;
+          meses.add(`Jul ${fecha.getFullYear()}`)
+          break;
+        case 7:
+          this.tot[7] += g.monto;
+          meses.add(`Ago ${fecha.getFullYear()}`)
+          break;
+        case 8:
+          this.tot[8] += g.monto;
+          meses.add(`Sep ${fecha.getFullYear()}`)
+          break;
+        case 9:
+          this.tot[9] += g.monto;
+          meses.add(`Oc ${fecha.getFullYear()}`)
+          break;
+        case 10:
+          this.tot[10] += g.monto;
+          meses.add(`Nov ${fecha.getFullYear()}`)
+          break;
+        case 11:
+          this.tot[11] += g.monto;
+          meses.add(`Dic ${fecha.getFullYear()}`)
+          break;
+      }
+    });
+    // Tomo los ultimos 6 meses
+    // if (meses.size > 6) {
+    //   for (let i = meses.size - 6; i < meses.size; i++) {
+    //     this.barChartLabels.push(meses[i]);
+    //   }
+    // } else {
+    //   meses.forEach((m) => this.barChartLabels.push(m));
+    // }
+    // this.barChartLabels.reverse(); // Hago esto porque sino los ultimos meses los va agregando al principio
+    this.barChartData[0].data.pop();
+    this.tot
+      // .filter((t) => t > 0)
+      .forEach((t) => this.barChartData[0].data.push(t));
+    this.barChart.chart.update();  // Actualizo el gráfico con las nuevas labels.
+    
+    // Elijo el último mes para generar el pie.
+    let last: number;
+    for (let i = 0; i < this.tot.length; i++) {
+      if (this.tot[i] > 0) last = i;
     }
-  ];
+    this.generarPie(last);
+  }
 
   // events
   public barChartClicked(e: any): void {
     console.log(e);
+    ;
+    this.generarPie(e.active[0]._index);
   }
 
-  public barChartHovered(e: any): void {
-    console.log(e);
+  private generarPie(mes: number) {
+    let gMes: Egreso[] = this.gastos.filter((g) => (new Date(g.fecha)).getMonth() === mes);
+    this._categoriaGasto.findAll().subscribe( (catGastos: CategoriaGasto[]) => {
+      catGastos.forEach((cG) => {
+        let total = 0;
+        this.doughnutChartLabels.push(cG.nombre);
+        gMes.filter((g: Egreso) => g.categoria_gasto_id === cG.id)
+            .forEach((g: Egreso) => total += g.monto);
+        this.doughnutChartData.push(total);
+      });
+    });
+    console.log('labels :', this.doughnutChartLabels);
+    console.log('data   :', this.doughnutChartData);
+    this.pieChart.chart.update();
   }
 
 }
