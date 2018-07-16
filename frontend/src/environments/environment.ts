@@ -14,3 +14,6 @@ export const environment = {
     messagingSenderId: '307735605247'
   }
 };
+
+export const server = 'localhost';
+

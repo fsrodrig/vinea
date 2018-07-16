@@ -29,6 +29,7 @@
             <div class="card-body">
 
                 <div style="display: block">
+                    <h4 class="text-center"> Gastos 2018</h4>
                     <canvas #barChart=base-chart baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [chartType]="barChartType" (chartClick)="barChartClicked($event)"></canvas>
                 </div>
 
@@ -38,9 +39,9 @@
     <div class="col-6">
         <div class="card animated fadeIn">
             <div class="card-body">
-
                 <div style="display: block">
-                    <canvas #pieChart=base-chart baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
+                    <h4 class="text-center"> Detalle de gastos {{pieTitle}}</h4>
+                    <canvas #pieChart=base-chart baseChart [colors]="doughnutChartColors" [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType"></canvas>
                 </div>
 
             </div>

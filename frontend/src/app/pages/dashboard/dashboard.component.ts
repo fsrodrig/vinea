@@ -42,11 +42,17 @@ export class DashboardComponent implements OnInit {
 
   // Doughnut
 
-  @ViewChild('pieChart') pieChart: BaseChartDirective;
+  pieTitle: string = '';
 
+  @ViewChild('pieChart') pieChart: BaseChartDirective;
 
   public doughnutChartLabels: string[] = [];
   public doughnutChartData: number[] = [];
+  public doughnutChartColors = [
+    {
+      backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56', '#ba2364', '#36efab', '#c1549e', '#ff6e32']
+    }
+  ];
   public doughnutChartType: string = 'doughnut';
   
   // BarChart
@@ -66,7 +72,7 @@ export class DashboardComponent implements OnInit {
   };
   public barChartLabels: string[] = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic' ];
   public barChartType: string = 'bar';
-  public barChartLegend: boolean = true;
+  public barChartLegend: boolean = false;
   public barChartData: any[] = [{
     data: [0],
     label: "Gastos 2018"
@@ -146,7 +152,7 @@ export class DashboardComponent implements OnInit {
     this.generarGraficos();
   }
 
-  private calcular() {
+  public calcular() {
     // Inicializo los totales en 0
     this.tenencias.forEach((t) => t.total = 0);
 
@@ -288,6 +294,9 @@ export class DashboardComponent implements OnInit {
   }
 
   private generarPie(mes: number) {
+    this.doughnutChartLabels.length = 0;
+    this.doughnutChartData.length = 0;
+    this.pieTitle = (new Date(2018, mes, 2, 0, 0, 0, 0)).toLocaleDateString('es', {year: 'numeric', month: 'short'});
     let gMes: Egreso[] = this.gastos.filter((g) => (new Date(g.fecha)).getMonth() === mes);
     this._categoriaGasto.findAll().subscribe( (catGastos: CategoriaGasto[]) => {
       catGastos.forEach((cG) => {
@@ -295,12 +304,10 @@ export class DashboardComponent implements OnInit {
         this.doughnutChartLabels.push(cG.nombre);
         gMes.filter((g: Egreso) => g.categoria_gasto_id === cG.id)
             .forEach((g: Egreso) => total += g.monto);
-        this.doughnutChartData.push(total);
+            this.doughnutChartData.push(total);
       });
+      this.pieChart.chart.update();
     });
-    console.log('labels :', this.doughnutChartLabels);
-    console.log('data   :', this.doughnutChartData);
-    this.pieChart.chart.update();
   }
 
 }
