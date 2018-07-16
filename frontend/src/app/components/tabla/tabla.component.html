@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr *ngFor="let dato of object.datos; let i = index ">
-                            <td *ngFor="let columna of object.columnas">
+                            <td class="text" *ngFor="let columna of object.columnas">
                                 <span *ngIf="!columna.tipo ">{{ dato[columna.atributo] }}</span>
                                 <span *ngIf="columna.tipo === 'fecha' ">{{ dato[columna.atributo] | date:'dd/MM/yyyy' }}</span>
                                 <span *ngIf="columna.tipo === 'estado' ">

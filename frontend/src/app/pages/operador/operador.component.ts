@@ -25,9 +25,9 @@ export class OperadorComponent implements OnInit {
 
   private onSuccess( res: Operador[] ) {
     this.data = {
-      nombre      : 'ingreso',
-      nombrePlural: 'ingresos',
-      url         : 'ingreso',
+      nombre      : 'operador',
+      nombrePlural: 'operadores',
+      url         : 'operador',
       datos       : res,
       columnas    : [
       { atributo: 'nombre', nombre: 'Nombre' },
