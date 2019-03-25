@@ -127,7 +127,7 @@ export class DashboardComponent implements OnInit {
         total: 0
       },
       {
-        nombre: 'Todo Pago',
+        nombre: 'Posnet',
         badge: 'bg-warning',
         texto: 'text-warning',
         icono: 'fa fa-credit-card',
