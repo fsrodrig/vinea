@@ -11,10 +11,10 @@
         <div class="alert alert-info alert-rounded top-app-tabla animated pulse" *ngIf="object.datos.length == 0">
             <i class="ti-notepad"></i> No hay {{ object.nombrePlural }} {{ cargado }}.
         </div>
-        <div class="table-responsive m-t-40" *ngIf="object.datos.length > 0">
+        <div class="table-responsive m-t-40">
             <div class="dataTables_wrapper ">
                 <div class="dataTables_length " id="myTable_length ">
-                    <label>Mostrar 
+                    <label>Mostrar
                     <select name="myTable_length " aria-controls="myTable " class=" ">
                         <option value="10 ">10</option>
                         <option value="25 " *ngIf="total >= 25 ">25</option>
@@ -34,7 +34,7 @@
                             <th *ngFor="let columna of object.columnas ">{{columna.nombre}}</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody *ngIf="object.datos.length > 0">
                         <tr *ngFor="let dato of object.datos; let i = index ">
                             <td class="text" *ngFor="let columna of object.columnas">
                                 <span *ngIf="!columna.tipo ">{{ dato[columna.atributo] }}</span>

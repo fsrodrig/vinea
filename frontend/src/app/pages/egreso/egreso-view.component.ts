@@ -15,7 +15,7 @@ import { CategoriaGasto } from '../../models/categoria-gasto.model';
 })
 export class EgresoViewComponent implements OnInit {
 
- 
+
   forma: FormGroup = new FormGroup({});
   egreso: Egreso = new Egreso();
 
@@ -48,14 +48,14 @@ export class EgresoViewComponent implements OnInit {
                        concepto_id      : new FormControl(this.egreso.concepto_id, Validators.required),
                        operador_id      : new FormControl(this.egreso.operador_id),
                        nro_res          : new FormControl(this.egreso.nro_res, [Validators.min(5000), Validators.max(9999)]),
-                       categoria_gasto_id : new FormControl(this.egreso.categoria_gasto_id),                       
+                       categoria_gasto_id : new FormControl(this.egreso.categoria_gasto_id),
                        descripcion      : new FormControl(this.egreso.descripcion),
                        forma_de_pago_id : new FormControl(this.egreso.forma_de_pago_id, Validators.required),
                        cambio           : new FormControl(this.egreso.cambio, [Validators.required, Validators.min(1), Validators.max(100)]),
                        monto            : new FormControl(this.egreso.monto, [Validators.required, Validators.min(0)]),
                      });
                    });
-    
+
     });
   }
 
@@ -86,13 +86,13 @@ export class EgresoViewComponent implements OnInit {
         )
         .subscribe(
           () => {
-            swal('Felicitaciones!', 'Ingreso guardado con éxito', 'success')
+            swal('Felicitaciones!', 'Egreso guardado con éxito', 'success')
               .then(() => {
                 this.goBack();
               });
           },
           (err) => {
-            this.isSaving = false;        
+            this.isSaving = false;
             swal('Error!', err.error.error.message, 'error');
           }
         )
@@ -106,7 +106,7 @@ export class EgresoViewComponent implements OnInit {
       this.forma.controls['nro_res'].updateValueAndValidity();
       this.forma.controls.operador_id.setValue(null);
       this.forma.controls['operador_id'].clearValidators();
-      this.forma.controls['operador_id'].updateValueAndValidity();  
+      this.forma.controls['operador_id'].updateValueAndValidity();
     }
     if (this.forma.value.concepto_id !== '4') {
       this.forma.controls.categoria_gasto_id.setValue(null);

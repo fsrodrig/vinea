@@ -1,7 +1,8 @@
 import {
   Component,
   Input,
-  OnChanges
+  OnChanges,
+  HostListener
 } from '@angular/core';
 import {
   DatePipe
@@ -24,6 +25,13 @@ import {
 export class TablaComponent implements OnChanges {
 
   @Input() datos: any = [];
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.keyCode === 13) { //Cuando aprieto Enter
+      this.create();
+    }
+  }
 
   fil: any = {}
   filtrados: any = [];
@@ -78,7 +86,7 @@ export class TablaComponent implements OnChanges {
   }
 
   private restoreValues(index: number) {
-    // saco el elemento de las listas de object y datos 
+    // saco el elemento de las listas de object y datos
     this.object.datos.splice(index, 1);
     this.datos.datos = this.object.datos;
   }
@@ -96,7 +104,7 @@ export class TablaComponent implements OnChanges {
     switch (this.object.nombre) {
       case 'ingreso':
         swal({
-            title: 'Eliminar cliente',
+            title: 'Eliminar Ingreso',
             text: 'Seleccione una opción',
             icon: 'warning',
             dangerMode: true,
